@@ -1,0 +1,149 @@
+<div class="container">
+    <form #registerForm="ngForm">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="register-form mx-auto">
+                    <h2 class="register-header">Đăng ký</h2>
+                    
+                    <!-- Username field -->
+                    <div class="form-group">
+                        <label for="userName">Tên đăng nhập</label>
+                        <input type="text" 
+                            class="form-control" 
+                            [(ngModel)]="userName"
+                            (input)="onUserNameChange()"
+                            name="userName"
+                            required 
+                            id="userName">
+                        <div class="divider-nospace"></div>
+                        @if(userName.length < 6 && registerForm.form.touched) {
+                            <p class="text-danger">Tên đăng nhập phải có ít nhất 6 ký tự</p>
+                        }
+                    </div>
+
+                    <!-- Email field -->
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" 
+                            class="form-control" 
+                            [(ngModel)]="email"
+                            (input)="validateEmail()"
+                            name="email"
+                            required 
+                            id="email">
+                        <div class="divider-nospace"></div>
+                        @if(registerForm.controls['email'].errors && registerForm.controls['email'].errors['invalidEmail'] && registerForm.form.touched) {
+                            <p class="text-danger">Email không hợp lệ</p>
+                        }
+                    </div>
+
+                    <!-- Password fields -->
+                    <div class="form-group password-field">
+                        <label for="password">Mật khẩu</label>
+                        <input [type]="showPassword ? 'text' : 'password'"
+                            [(ngModel)]="password"                            
+                            name="password"
+                            placeholder="Ít nhất 3 ký tự" 
+                            required
+                            class="form-control" 
+                            id="password">                    
+                        <i class="password-toggle fas" 
+                           [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'" 
+                           (click)="togglePassword()"></i>
+                        <div class="divider-nospace"></div>
+                        @if(password.length < 3 && registerForm.form.touched) {
+                            <p class="text-danger">Mật khẩu phải có ít nhất 3 ký tự</p>
+                        }                    
+                    </div>
+
+                    <div class="form-group password-field">
+                        <label for="retype-password">Gõ lại mật khẩu</label>
+                        <input [type]="showPassword ? 'text' : 'password'"
+                            placeholder="Ít nhất 3 ký tự" 
+                            [(ngModel)]="retypePassword" 
+                            name="retypePassword"
+                            (input)="checkPasswordsMatch()"
+                            required
+                            class="form-control" 
+                            id="retype-password">                    
+                        <i class="password-toggle fas" 
+                           [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'" 
+                           (click)="togglePassword()"></i>
+                        <div class="divider-nospace"></div>
+                        @if(registerForm.controls['retypePassword'].errors && registerForm.controls['retypePassword'].errors['passwordMismatch'] && registerForm.form.touched) {
+                            <p class="text-danger">Mật khẩu không khớp</p>
+                        }
+                    </div>
+
+                    <!-- Other fields -->
+                    <div class="form-group">
+                        <label for="full-name">Họ và tên</label>
+                        <input type="text" 
+                            [(ngModel)]="fullName"
+                            name="fullName"
+                            class="form-control" 
+                            required
+                            id="full-name">
+                        <div class="divider-nospace"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date-of-birth">Ngày tháng năm sinh</label>
+                        <input type="date" 
+                            class="form-control" 
+                            required
+                            id="date-of-birth" 
+                            [(ngModel)]="dateOfBirth"
+                            name="dateOfBirth"
+                            (input)="checkAge()">
+                        <div class="divider-nospace"></div>
+                        @if(registerForm.controls['dateOfBirth'].errors && registerForm.controls['dateOfBirth'].errors['invalidAge'] && registerForm.form.touched) {
+                            <p class="text-danger">Bạn chưa đủ 18 tuổi</p>
+                        }                
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Địa chỉ</label>
+                        <input type="text" 
+                            [(ngModel)]="address"
+                            name="address"
+                            class="form-control" 
+                            required
+                            id="address">
+                        <div class="divider-nospace"></div>
+                    </div>
+
+                    <!-- Terms acceptance -->
+                    <div class="form-group">
+                        <div class="form-check checkbox-text">
+                            <span style="display: flex;">
+                                <input type="checkbox" 
+                                    [(ngModel)]="isAccepted"
+                                    name="isAccepted"
+                                    class="form-check-input" 
+                                    id="agree">
+                                <label class="form-check-label text-start" for="agree">
+                                    Tôi đồng ý với các điều khoản và điều kiện
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Submit button -->
+                    <button type="button" 
+                        [disabled]="registerForm.invalid || !isAccepted"
+                        (click)="register()"
+                        class="register-button">
+                        Đăng ký
+                    </button>
+
+                    <div class="divider"></div>
+                    <p class="text-center">
+                        Bạn đã có tài khoản? 
+                        <span><a href="#" class="register-link">Đăng nhập</a></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

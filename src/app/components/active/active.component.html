@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="active-form mx-auto">
+          <h2 class="text-center">Kích hoạt tài khoản</h2>
+          <div class="form-group">
+            <label for="verifyCode">Mã xác thực</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              [(ngModel)]="verifyCode" 
+              id="verifyCode" 
+              placeholder="Nhập mã xác thực từ email">
+          </div>
+          <button 
+            (click)="submitActiveCode()" 
+            class="btn btn-primary w-100 mt-3"
+            [disabled]="!verifyCode">
+            Kích hoạt
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

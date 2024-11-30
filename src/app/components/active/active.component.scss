@@ -1,0 +1,14 @@
+@import '../../styles/shared-styles.scss';
+
+.container {
+    color: white;
+    height: 100vh;    
+}
+.active-form {
+    max-width: 400px;
+    padding: 20px;
+    margin-top: 50px;
+  }
+  .form-group {
+    margin-bottom: 15px;
+  }
